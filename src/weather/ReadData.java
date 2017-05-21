@@ -4,24 +4,22 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.util.Scanner;
 
 public class ReadData {
 
-    String address;
-
-    Scanner scan = new Scanner(System.in);
-
     public void readData() {
-        System.out.print("Enter date: ");
-        address = scan.nextLine();
-
+        String[] parts;
         try {
-            URL url = new URL("https://www.wunderground.com/history/airport/EFVA/" + address + "/DailyHistory.html?req_city=Vaasa+Airport&req_state=&req_statename=Finland&reqdb.zip=00000&reqdb.magic=&reqdb.wmo=&format=1");
+            URL url = new URL("https://www.wunderground.com/history/airport/EFVA/" + "2015/1/1" + "/DailyHistory.html?req_city=Vaasa+Airport&req_state=&req_statename=Finland&reqdb.zip=00000&reqdb.magic=&reqdb.wmo=&format=1");
             BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
             String line;
             while ((line = in.readLine()) != null) {
                 System.out.println(line);
+//                parts = line.split("\\,");
+//                int length = parts.length;
+//                for (int i = 0; i < length; i++) {
+//                    System.out.println(parts[i]);
+//                }
             }
             in.close();
         } catch (IOException e) {
