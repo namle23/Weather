@@ -35,6 +35,6 @@ public class Date {
     }
 
     public String toString() {
-        return "Data: " + yearValue + "/" + monthValue + "/" + dayValue;
+        return getYearValue() + "/" + getMonthValue() + "/" + getDayValue();
     }
 }
