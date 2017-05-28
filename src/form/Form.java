@@ -23,13 +23,11 @@ import weather.DateCollection;
 
 public class Form extends javax.swing.JFrame {
 
-    public static final String[] TIME_LIST = {"12:20AM", "12:50AM", "1:20AM", "1:50AM", "2:20AM", "2:50AM", "3:20AM",
-        "3:50AM", "4:20AM", "4:50AM", "5:50AM", "6:20AM", "6:50AM", "7:20AM", "7:50AM", "8:20AM", "8:50AM", "9:50AM",
-        "10:20AM", "10:50AM", "11:20AM", "11:50AM", "12:20PM", "12:50PM", "1:20PM", "1:50PM", "2:20PM", "2:50PM", "3:20PM",
-        "3:50PM", "4:20PM", "4:50PM", "5:20PM", "5:50PM", "6:20PM", "6:50PM", "7:20PM", "7:50PM", "8:20PM", "8:50PM", "9:20PM",
-        "9:50PM", "10:20PM", "10:50PM", "11:20PM", "11:50PM"};
-
-    public static String userDate;
+    public static final String[] TIME_LIST = {"", "12:20", "12:50", "1:20", "1:50", "2:20", "2:50", "3:20",
+        "3:50", "4:20", "4:50", "5:50", "6:20", "6:50", "7:20", "7:50", "8:20", "8:50", "9:50",
+        "10:20", "10:50", "11:20", "11:50", "12:20", "12:50", "1:20", "1:50", "2:20", "2:50", "3:20",
+        "3:50", "4:20", "4:50", "5:20", "5:50", "6:20", "6:50", "7:20", "7:50", "8:20", "8:50", "9:20",
+        "9:50", "10:20", "10:50", "11:20", "11:50"};
 
     DateCollection collection = new DateCollection();
     JFileChooser chooser = new JFileChooser();
@@ -38,9 +36,10 @@ public class Form extends javax.swing.JFrame {
         initComponents();
     }
 
-    //get user input and get data
-    public void readData() {
+    //get temparature data
+    public String readTemp() {
         String[] parts;
+        StringBuilder builder = new StringBuilder();
         try {
             URL url = new URL("https://www.wunderground.com/history/airport/EFVA/" + yearValue.getText() + "/" + monthValue.getText() + "/" + dayValue.getText()
                     + "/DailyHistory.html?req_city=Vaasa+Airport&req_state=&req_statename=Finland&reqdb.zip=00000&reqdb.magic=&reqdb.wmo=&format=1");
@@ -48,8 +47,8 @@ public class Form extends javax.swing.JFrame {
             String line;
             while ((line = in.readLine()) != null) {
                 parts = line.split(",");
-                for (int i = 1; i < parts.length; i++) {
-                    System.out.println(parts[1]);
+                for (int i = 13; i < parts.length; i++) { //take elements from index 13
+                    builder.append(parts[1] + ",");
                 }
             }
             in.close();
@@ -57,6 +56,30 @@ public class Form extends javax.swing.JFrame {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return builder.toString().substring(12); //get rid of letter in string
+    }
+
+    //get wind speeds data
+    public String readWind() {
+        String[] parts;
+        StringBuilder builder = new StringBuilder();
+        try {
+            URL url = new URL("https://www.wunderground.com/history/airport/EFVA/" + yearValue.getText() + "/" + monthValue.getText() + "/" + dayValue.getText()
+                    + "/DailyHistory.html?req_city=Vaasa+Airport&req_state=&req_statename=Finland&reqdb.zip=00000&reqdb.magic=&reqdb.wmo=&format=1");
+            BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+            String line;
+            while ((line = in.readLine()) != null) {
+                parts = line.split(",");
+                for (int i = 13; i < parts.length; i++) {
+                    builder.append(parts[7] + ",");
+                }
+            }
+            in.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return builder.toString().substring(14);
     }
 
     @SuppressWarnings("unchecked")
@@ -134,7 +157,7 @@ public class Form extends javax.swing.JFrame {
                     .addGroup(dataPanelLayout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(btnReset)))
-                .addContainerGap(368, Short.MAX_VALUE))
+                .addContainerGap(795, Short.MAX_VALUE))
         );
         dataPanelLayout.setVerticalGroup(
             dataPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,7 +181,7 @@ public class Form extends javax.swing.JFrame {
                 .addGroup(dataPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(yearValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(269, Short.MAX_VALUE))
+                .addContainerGap(456, Short.MAX_VALUE))
         );
 
         EnterData.addTab("Enter data", dataPanel);
@@ -182,19 +205,19 @@ public class Form extends javax.swing.JFrame {
         chartPanel.setLayout(chartPanelLayout);
         chartPanelLayout.setHorizontalGroup(
             chartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, chartPanelLayout.createSequentialGroup()
-                .addGap(46, 272, Short.MAX_VALUE)
-                .addComponent(btnDisplay)
-                .addGap(295, 295, 295))
             .addGroup(chartPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(displayChartPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(chartPanelLayout.createSequentialGroup()
+                .addGap(484, 484, 484)
+                .addComponent(btnDisplay)
+                .addContainerGap(510, Short.MAX_VALUE))
         );
         chartPanelLayout.setVerticalGroup(
             chartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, chartPanelLayout.createSequentialGroup()
-                .addComponent(displayChartPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
+                .addComponent(displayChartPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDisplay))
         );
@@ -305,7 +328,6 @@ public class Form extends javax.swing.JFrame {
     }//GEN-LAST:event_chartPanelComponentShown
 
     private void btnDisplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDisplayActionPerformed
-
         ChartPanel barPanel = new ChartPanel(this.createChart(createDataset()));
         displayChartPanel.removeAll();
         displayChartPanel.add(barPanel, BorderLayout.CENTER);
@@ -314,29 +336,26 @@ public class Form extends javax.swing.JFrame {
 
     private CategoryDataset createDataset() {
 
-        // row keys...
-        final String series1 = "Temparatures";
-        final String series2 = "Wind speeds";
+        String tempValues[] = readTemp().split(",");
+        String windValues[] = readWind().split(",");
 
-//        final String time3 = "1:20 AM";
-//        final String time4 = "1:50 AM";
+        // row keys...
+        final String tempSeries = "Temparatures";
+        final String windSeries = "Wind speeds";
+
         // create the dataset...
         final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
-        for (int i = 0; i < TIME_LIST.length; i++) {
-            dataset.addValue(i, series1, TIME_LIST[i]);
+        for (int i = 1; i < TIME_LIST.length; i++) {
+            Double d = Double.parseDouble(tempValues[i]);
+            dataset.addValue(d, tempSeries, TIME_LIST[i]);
         }
 
-        for (int i = 0; i < TIME_LIST.length; i++) {
-            dataset.addValue(i + 5, series2, TIME_LIST[i]);
+        for (int i = 1; i < TIME_LIST.length; i++) {
+            Double d = Double.parseDouble(windValues[i]);
+            dataset.addValue(d, windSeries, TIME_LIST[i]);
         }
-
-//        dataset.addValue(4.0, series2, time5);
-//        dataset.addValue(4.0, series2, time6);
-//        dataset.addValue(2.0, series2, time7);
-//        dataset.addValue(1.0, series2, time8);
         return dataset;
-
     }
 
     private JFreeChart createChart(final CategoryDataset dataset) {
@@ -386,15 +405,6 @@ public class Form extends javax.swing.JFrame {
         return chart;
     }
 
-    private void updateView() {
-        for (Date d : collection.getDates()) {
-            jTextField1.append(d.toString() + "\n"); //setText method will change everything, but append just updates
-        }
-    }
-
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -433,6 +443,7 @@ public class Form extends javax.swing.JFrame {
                 new Form().setVisible(true);
             }
         });
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
