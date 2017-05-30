@@ -18,12 +18,11 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
-import weather.Date;
 import weather.DateCollection;
 
 public class Form extends javax.swing.JFrame {
 
-    public static final String[] TIME_LIST = {"", "12:20", "12:50", "1:20", "1:50", "2:20", "2:50", "3:20",
+    public static final String[] TIME_LIST = {"12:20", "12:50", "1:20", "1:50", "2:20", "2:50", "3:20",
         "3:50", "4:20", "4:50", "5:50", "6:20", "6:50", "7:20", "7:50", "8:20", "8:50", "9:50",
         "10:20", "10:50", "11:20", "11:50", "12:20", "12:50", "1:20", "1:50", "2:20", "2:50", "3:20",
         "3:50", "4:20", "4:50", "5:20", "5:50", "6:20", "6:50", "7:20", "7:50", "8:20", "8:50", "9:20",
@@ -56,7 +55,7 @@ public class Form extends javax.swing.JFrame {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return builder.toString().substring(12); //get rid of letter in string
+        return builder.toString().substring(13); //get rid of letter in string
     }
 
     //get wind speeds data
@@ -79,7 +78,7 @@ public class Form extends javax.swing.JFrame {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return builder.toString().substring(14);
+        return builder.toString().substring(15);
     }
 
     @SuppressWarnings("unchecked")
@@ -92,7 +91,6 @@ public class Form extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        btnSubmit = new javax.swing.JButton();
         btnReset = new javax.swing.JButton();
         dayValue = new javax.swing.JTextField();
         monthValue = new javax.swing.JTextField();
@@ -114,13 +112,6 @@ public class Form extends javax.swing.JFrame {
         jLabel2.setText("Month");
 
         jLabel3.setText("Year");
-
-        btnSubmit.setText("Submit");
-        btnSubmit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSubmitActionPerformed(evt);
-            }
-        });
 
         btnReset.setText("Reset");
         btnReset.addActionListener(new java.awt.event.ActionListener() {
@@ -148,39 +139,35 @@ public class Form extends javax.swing.JFrame {
                         .addGap(24, 24, 24)))
                 .addGroup(dataPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(yearValue, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
-                    .addGroup(dataPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(monthValue)
-                        .addComponent(dayValue, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)))
-                .addGap(43, 43, 43)
-                .addGroup(dataPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSubmit)
-                    .addGroup(dataPanelLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(btnReset)))
-                .addContainerGap(795, Short.MAX_VALUE))
+                    .addComponent(monthValue)
+                    .addComponent(dayValue, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE))
+                .addGap(53, 53, 53)
+                .addComponent(btnReset)
+                .addContainerGap(792, Short.MAX_VALUE))
         );
         dataPanelLayout.setVerticalGroup(
             dataPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dataPanelLayout.createSequentialGroup()
                 .addGroup(dataPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(dataPanelLayout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(jLabel1))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dataPanelLayout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGroup(dataPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(dataPanelLayout.createSequentialGroup()
+                                .addGap(28, 28, 28)
+                                .addComponent(jLabel1))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dataPanelLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(dayValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(dataPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(dayValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnSubmit))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(dataPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnReset)
-                    .addGroup(dataPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2)
-                        .addComponent(monthValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(dataPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(yearValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel2)
+                            .addComponent(monthValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(20, 20, 20)
+                        .addGroup(dataPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(yearValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(dataPanelLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(btnReset)))
                 .addContainerGap(456, Short.MAX_VALUE))
         );
 
@@ -207,19 +194,20 @@ public class Form extends javax.swing.JFrame {
             chartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(chartPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(displayChartPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(displayChartPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1086, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(chartPanelLayout.createSequentialGroup()
-                .addGap(484, 484, 484)
+                .addGap(450, 450, 450)
                 .addComponent(btnDisplay)
-                .addContainerGap(510, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         chartPanelLayout.setVerticalGroup(
             chartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, chartPanelLayout.createSequentialGroup()
-                .addComponent(displayChartPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
+                .addComponent(displayChartPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnDisplay))
+                .addComponent(btnDisplay)
+                .addContainerGap())
         );
 
         EnterData.addTab("Chart", chartPanel);
@@ -281,11 +269,6 @@ public class Form extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
-        Date date = new Date(yearValue.getText(), monthValue.getText(), dayValue.getText());
-        collection.getDates().add(date);
-    }//GEN-LAST:event_btnSubmitActionPerformed
-
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
         dayValue.setText("");
         monthValue.setText("");
@@ -346,12 +329,12 @@ public class Form extends javax.swing.JFrame {
         // create the dataset...
         final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
-        for (int i = 1; i < TIME_LIST.length; i++) {
+        for (int i = 0; i < TIME_LIST.length; i++) {
             Double d = Double.parseDouble(tempValues[i]);
             dataset.addValue(d, tempSeries, TIME_LIST[i]);
         }
 
-        for (int i = 1; i < TIME_LIST.length; i++) {
+        for (int i = 0; i < TIME_LIST.length; i++) {
             Double d = Double.parseDouble(windValues[i]);
             dataset.addValue(d, windSeries, TIME_LIST[i]);
         }
@@ -450,7 +433,6 @@ public class Form extends javax.swing.JFrame {
     private javax.swing.JTabbedPane EnterData;
     private javax.swing.JButton btnDisplay;
     private javax.swing.JButton btnReset;
-    private javax.swing.JButton btnSubmit;
     private javax.swing.JPanel chartPanel;
     private javax.swing.JPanel dataPanel;
     private javax.swing.JTextField dayValue;
