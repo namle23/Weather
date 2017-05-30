@@ -18,7 +18,7 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
-import weather.DateCollection;
+import weather.WeatherCollection;
 
 public class Form extends javax.swing.JFrame {
 
@@ -28,7 +28,7 @@ public class Form extends javax.swing.JFrame {
         "3:50", "4:20", "4:50", "5:20", "5:50", "6:20", "6:50", "7:20", "7:50", "8:20", "8:50", "9:20",
         "9:50", "10:20", "10:50", "11:20", "11:50"};
 
-    DateCollection collection = new DateCollection();
+    private WeatherCollection collection = new WeatherCollection();
     JFileChooser chooser = new JFileChooser();
 
     public Form() {
@@ -303,7 +303,7 @@ public class Form extends javax.swing.JFrame {
 
     private void newMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newMenuItemActionPerformed
         // Create new file
-        collection.setDates(new ArrayList<>());
+        collection.setData(new ArrayList<>());
     }//GEN-LAST:event_newMenuItemActionPerformed
 
     private void chartPanelComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_chartPanelComponentShown
@@ -315,6 +315,7 @@ public class Form extends javax.swing.JFrame {
         displayChartPanel.removeAll();
         displayChartPanel.add(barPanel, BorderLayout.CENTER);
         displayChartPanel.validate();
+        collection.getData().add(readTemp() + "/" + readWind()); //record data to ArrayList in WeatherCollection
     }//GEN-LAST:event_btnDisplayActionPerformed
 
     private CategoryDataset createDataset() {
